@@ -5,7 +5,9 @@ provides metrics and a flame graph to help debug latency and throughput.
 
 ## Installation
 
-`pip install tinyprofiler`
+```bash
+pip install tinyprofiler
+```
 
 ## Usage
 
@@ -20,3 +22,21 @@ def your_function():
 ```
 
 ![img](./img/p.png)
+
+## API
+
+### `Observer`
+
+`Observer(num_samples: int = 10, enabled: bool = True)`
+
+- `num_samples` (optional): The number of samples to collect. You can configure how many samples to collect during profiling. The default is 10.
+
+- `enabled` (optional): You can enable or disable profiling using this parameter. By default, profiling is enabled (True).
+
+### `Observer.profile` (decorator)
+
+`profile(self, trace: str = '__main__', parent: bool = False) -> None:`
+
+- `trace` (optional) - the trace to group functions together
+
+- `parent` (optional): Set this to True if you want to treat the decorated function as a parent node in the flame graph hierarchy.
