@@ -68,9 +68,10 @@ class Observer:
       avgs = {k: v for k, v in sorted(avgs.items(), key=lambda item: sum(item[1])/len(item[1]), reverse=True)}
       for unique_object, values in avgs.items():
         print(f"{unique_object:<40}{sum(values)/len(values):<10.2f}{min(values):<10.2f}{max(values):<10.2f}ms")
-      avg = sum([sum(v) for v in avgs.values()]) / sum([len(v) for v in avgs.values()])
-      min = min([min(v) for v in avgs.values()])
-      max = max([max(v) for v in avgs.values()])
+      durations = [p.end_time - p.start_time for p in parents]
+      avg = sum(durations)/len(durations)/1000000
+      min = min(durations)/1000000
+      max = max(durations)/1000000
       print(f"{'Totals':<40}{avg:<10.2f}{min:<10.2f}{max:<10.2f}ms")
 
       # flame graph:
