@@ -16,9 +16,18 @@ from tinyprofiler import Observer
 
 observer = Observer()
 
-@observer.profile()
+@observer.profile(parent=True)
 def your_function():
-  # do something
+  sub_function1()
+  sub_function2()
+
+@observer.profile()
+def sub_function1():
+  pass
+
+@observer.profile()
+def sub_function(2):
+  pass
 ```
 
 ![img](./img/p.png)
