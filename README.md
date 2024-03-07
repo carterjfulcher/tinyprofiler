@@ -26,7 +26,7 @@ def sub_function1():
   pass
 
 @observer.profile()
-def sub_function(2):
+def sub_function2():
   pass
 ```
 
