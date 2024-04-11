@@ -3,6 +3,8 @@
 Tiny Profiler is a sub 200 line profiling utility that records telemetry from your app,
 provides metrics and a flame graph to help debug latency and throughput.
 
+No dependencies! 
+
 ## Installation
 
 ```bash
