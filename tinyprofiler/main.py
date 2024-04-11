@@ -65,9 +65,12 @@ class Observer:
             if i.object == unique_object:
               avgs[unique_object].append((i.end_time - i.start_time)/1000000)
               break
-      avgs = {k: v for k, v in sorted(avgs.items(), key=lambda item: sum(item[1])/len(item[1]), reverse=True)}
+      avgs = {k: v for k, v in sorted(avgs.items(), key=lambda item: sum(item[1])/len(item[1]) if item[1] else 0, reverse=True)}
       for unique_object, values in avgs.items():
-        print(f"{unique_object:<40}{sum(values)/len(values):<10.2f}{min(values):<10.2f}{max(values):<10.2f}ms")
+        try:
+          print(f"{unique_object:<40}{sum(values)/len(values):<10.2f}{min(values):<10.2f}{max(values):<10.2f}ms")
+        except ZeroDivisionError:
+          continue 
       durations = [p.end_time - p.start_time for p in parents]
       avg_total = sum(durations)/len(durations)/1000000
       min_total = min(durations)/1000000
@@ -79,7 +82,7 @@ class Observer:
         parent = sample[0]
         children = sample[1:]
         size = os.get_terminal_size().columns
-        print(f"\n{f'Flame Graph: Sample {index}':^{size}}\n")
+        print(f"\n{f'Flame Graph: Sample {index}. Total Runtime: {durations[index] / 1000000 if durations[index] else 0}ms':^{size}}\n")
         print(f"{parent.object:<30}{'='*(size-30)}")
         total_space = size - 30
         for child in children:
